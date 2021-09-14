@@ -1,0 +1,23 @@
+<div class="pagination">
+    <span class="step-links">
+        {% if page.has_previous %}
+            <a href="?page={{ page.previous_page_number }}">Previous</a>
+        {% endif %}
+        <span class="current">
+            Page {{ page.number }} of {{ page.paginator.num_pages }}.
+        </span>
+        {% if page.has_next %}
+            <a href="?page={{ page.next_page_number }}">Next</a>
+        {% endif %}
+    </span>
+</div>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination pagination-template d-flex justify-content-center">
+    <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+    <li class="page-item"><a href="#" class="page-link active">1</a></li>
+    <li class="page-item"><a href="#" class="page-link">2</a></li>
+    <li class="page-item"><a href="#" class="page-link">3</a></li>
+    <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+  </ul>
+</nav>

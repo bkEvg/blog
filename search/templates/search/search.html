@@ -1,0 +1,9 @@
+<form action="{% url 'search' %}" method="get">
+  <input name="q" type="text" placeholder="Search...">
+</form>
+
+{% for post in posts %}
+	<a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+{% empty %}
+	Nothing found
+{% endfor %}

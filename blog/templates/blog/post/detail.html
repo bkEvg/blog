@@ -1,0 +1,128 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<main class="post blog-post col-lg-12"> 
+  <div class="container">
+    <div class="post-single">
+      <div class="post-thumbnail"><img src="{{ post.cover.url }}" alt="Обложка на пост" class="img-fluid"></div>
+      <div class="post-details">
+        <div class="post-meta d-flex justify-content-between">
+          <div class="category">
+          	{% for tag in post.tags.all %}
+          		<a href="{% url 'post_list_by_tag' tag.slug %}">{{ tag.name }}</a>
+            {% endfor %}
+      	  </div>
+        </div>
+        <h1>{{ post.title }}</h1>
+        <div class="post-footer d-flex align-items-center flex-column flex-sm-row">
+        	<a href="#" class="author d-flex align-items-center flex-wrap">
+            <div class="avatar"><img src="{{ post.author.profile_image.url }}" alt="Фото профиля" class="img-fluid"></div>
+            <div class="title"><span>{{ post.author.get_full_name }}</span></div></a>
+          <div class="d-flex align-items-center flex-wrap">       
+            <div class="date"><i class="icon-clock"></i> {{ post.updated|date:'M j, Y' }}</div>
+            <div class="views"><i class="icon-eye"></i> {{ views|length }}</div>
+            {% with comments.count as total_comments %}
+            <div class="comments meta-last"><i class="icon-comment"></i>{{ total_comments }}</div>
+            {% endwith %}
+          </div>
+        </div>
+        <div class="post-body">
+          		{{ post.body|safe }}
+        </div>
+        <div class="post-tags">
+        	{% for tag in post.tags.all %}
+        		<a href="{% url 'post_list_by_tag' tag.slug %}" class="tag">#{{ tag.name }}</a>
+        	{% endfor %}
+        </div>
+        
+        {% with post.get_previous_post.first as previous_post %}
+        <div class="posts-nav d-flex justify-content-between align-items-stretch flex-column flex-md-row" style="margin-bottom: 30px;">
+        	{% if previous_post %}
+        	<a href="{{ previous_post.get_absolute_url }}" class="prev-post text-left d-flex align-items-center">
+	            <div class="icon prev"><i class="fa fa-angle-left"></i></div>
+	            <div class="text"><strong class="text-primary">Предыдущий пост </strong>
+	              <h6>{{ previous_post.title }}</h6>
+	            </div>
+	        </a>
+	       	{% else %}
+	       	{% endif %}
+        {% endwith %}
+        {% with post.get_next_post.last as next_post %}
+        {% if next_post %}
+        <a href="{{ next_post.get_absolute_url }}" class="next-post text-right d-flex align-items-center justify-content-end">
+            <div class="text"><strong class="text-primary">Следующий пост </strong>
+              <h6>{{ next_post.title }}</h6>
+            </div>
+            <div class="icon next"><i class="fa fa-angle-right">   </i></div>
+        </a>{% else %}{% endif %}</div>
+        {% endwith %}
+        {% if similar_posts %}
+        <h3 class="h6">Похожие посты</h3>
+        <div class="row">
+        	{% for post in similar_posts|slice:':2' %}
+	          <div class="post col-md-6">
+	            <div class="post-thumbnail"><a href="{{ post.get_absolute_url }}"><img src="{{ post.cover.url }}" alt="Обложка поста" class="img-fluid"></a></div>
+	            <div class="post-details">
+	              <div class="post-meta d-flex justify-content-between">
+	                <div class="date">{{ post.updated|date:'j E, Y' }}</div>
+	                <div class="category">
+	                	{% for tag in post.tags.all %}
+          					<a href="{% url 'post_list_by_tag' tag.slug %}">{{ tag.name }}</a>
+            			{% endfor %}</div>
+	              	</div><a href="{{ post.get_absolute_url }}">
+	                <h3 class="h4">Ways to remember your important ideas</h3></a>
+	              <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+	            </div>
+	          </div>
+	        {% endfor %}
+        </div>
+        {% endif %}
+        <div class="post-comments">
+          <header>
+            <h3 class="h6">Комментарии<span class="no-of-comments">({{ post.comments.all|length }})</span></h3>
+          </header>
+          {% for comment in comments %}
+          <div class="comment">
+            <div class="comment-header d-flex justify-content-between">
+              <div class="user d-flex align-items-center">
+                <div class="image"><img src="{% static 'blog/img/user.svg' %}" alt="Фото профиля" class="img-fluid rounded-circle"></div>
+                <div class="title"><strong>{{ comment.name }}</strong><span class="date">{{ comment.created|date:'j E, Y' }}</span></div>
+              </div>
+            </div>
+            <div class="comment-body">
+              <p>{{ comment.body }}</p>
+            </div>
+          </div>
+          {% empty %}
+          	Нет комментариев.
+          {% endfor %}
+        </div>
+        <div class="add-comment">
+          <header>
+            <h3 class="h6">Оставить комментарий</h3>
+          </header>
+          <form action="." method="post" class="commenting-form">
+          	{% csrf_token %}
+            <div class="row">
+              <div class="form-group col-md-6">
+                <input type="text" name="name" id="username" placeholder="Имя" class="form-control">
+              </div>
+              <div class="form-group col-md-6">
+                <input type="email" name="email" id="email" placeholder="Email Адрес (не будет опубликован)" class="form-control">
+              </div>
+              <div class="form-group col-md-12">
+                <textarea name="body" id="body" placeholder="Ваш комментарий" class="form-control"></textarea>
+              </div>
+              <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-secondary">Отправить</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
