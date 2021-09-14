@@ -115,7 +115,7 @@ class Post(models.Model):
 	def get_absolute_url(self):
 		return reverse('post_detail', args=[self.publish.strftime('%d'),
 										self.publish.strftime('%m'),
-										self.publish.year,
+										self.publish.strftime('%y'),
 										self.slug])
 
 	def get_previous_post(self):
