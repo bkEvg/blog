@@ -1,0 +1,1 @@
+web: gunicorn bauer_blog.wsgi
