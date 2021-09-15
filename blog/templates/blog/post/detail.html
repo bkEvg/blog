@@ -72,8 +72,8 @@
           					<a href="{% url 'post_list_by_tag' tag.slug %}">{{ tag.name }}</a>
             			{% endfor %}</div>
 	              	</div><a href="{{ post.get_absolute_url }}">
-	                <h3 class="h4">Ways to remember your important ideas</h3></a>
-	              <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+	                <h3 class="h4">{{ post.title }}</h3></a>
+	              <p class="text-muted">{{ post.body|truncatewords:30|safe }}</p>
 	            </div>
 	          </div>
 	        {% endfor %}

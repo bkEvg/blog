@@ -113,12 +113,12 @@ class Post(models.Model):
 		return self.title
 
 	def get_absolute_url(self):
-		# return reverse('post_detail', args=[self.publish.strftime('%d'),
-		# 								self.publish.strftime('%m'),
-		# 								self.publish.strftime('%Y'),
-		# 								self.slug])
+		return reverse('post_detail', args=[self.publish.strftime('%d'),
+										self.publish.strftime('%m'),
+										self.publish.strftime('%Y'),
+										self.slug])
 
-		return reverse('post_detail', args=[self.publish.strftime('%d'), self.slug])
+		# return reverse('post_detail', args=[self.publish.strftime('%d'), self.slug])
 
 	def get_previous_post(self):
 		post = get_object_or_404(Post, slug=self.slug, status='published', publish=self.publish)
