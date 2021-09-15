@@ -6,6 +6,6 @@ urlpatterns = [
 	path('', views.list, name='post_list'),
 	path('tags/<tag_slug>/', views.list, name='post_list_by_tag'),
 	# path('posts/<day>/<month>/<year>/<post>/', views.detail, name='post_detail'),
-	path('posts/<day>/<month>/<post>/', views.detail, name='post_detail'),
+	path('posts/<day>/<post>/', views.detail, name='post_detail'),
 
 ]
