@@ -8,67 +8,6 @@ from ckeditor.fields import RichTextField
 from django.shortcuts import get_object_or_404
 from django.db.models import Count
 
-# from django.utils.text import slugify
-
-
-class TagBase(models.Model):
-    name = models.CharField(verbose_name="name", unique=True, max_length=100)
-    slug = models.SlugField(verbose_name="slug", unique=True, max_length=100)
-
-    def __str__(self):
-        return self.name
-
-    def __gt__(self, other):
-        return self.name.lower() > other.name.lower()
-
-    def __lt__(self, other):
-        return self.name.lower() < other.name.lower()
-
-    class Meta:
-        abstract = True
-
-    def save(self, *args, **kwargs):
-        if self._state.adding and not self.slug:
-            self.slug = self.slugify(self.name)
-            using = kwargs.get("using") or router.db_for_write(
-                type(self), instance=self
-            )
-            # Make sure we write to the same db for all attempted writes,
-            # with a multi-master setup, theoretically we could try to
-            # write and rollback on different DBs
-            kwargs["using"] = using
-            # Be opportunistic and try to save the tag, this should work for
-            # most cases ;)
-            try:
-                with transaction.atomic(using=using):
-                    res = super().save(*args, **kwargs)
-                return res
-            except IntegrityError:
-                pass
-            # Now try to find existing slugs with similar names
-            slugs = set(
-                type(self)
-                ._default_manager.filter(slug__startswith=self.slug)
-                .values_list("slug", flat=True)
-            )
-            i = 1
-            while True:
-                slug = self.slugify(self.name, i)
-                if slug not in slugs:
-                    self.slug = slug
-                    # We purposely ignore concurrency issues here for now.
-                    # (That is, till we found a nice solution...)
-                    return super().save(*args, **kwargs)
-                i += 1
-        else:
-            return super().save(*args, **kwargs)
-
-    def slugify(self, tag, i=None):
-        slug = slugify(tag)
-        if i is not None:
-            slug += "_%d" % i
-        return slug
-
 
 class Author(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Пользователь')
