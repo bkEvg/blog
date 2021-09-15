@@ -8,7 +8,7 @@ from ckeditor.fields import RichTextField
 from django.shortcuts import get_object_or_404
 from django.db.models import Count
 
-from django.utils.text import slugify
+# from django.utils.text import slugify
 
 
 class TagBase(models.Model):

@@ -38,7 +38,7 @@
             <div class="close-btn"><i class="icon-close"></i></div>
             <div class="row d-flex justify-content-center">
               <div class="col-md-8">
-                <form action="#">
+                <form action="{% url 'search' %}">
                   <div class="form-group">
                     <input type="search" name="search" id="search" placeholder="What are you looking for?">
                     <button type="submit" class="submit"><i class="icon-search-1"></i></button>
@@ -134,8 +134,6 @@
               {% endfor %}
             </div>
           </div>
-          {% block widget %}
-          {% endblock %}
           <!-- Widget [Categories Widget]-->
           <div class="widget categories">
             <header>
