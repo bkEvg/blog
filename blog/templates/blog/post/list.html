@@ -2,12 +2,12 @@
 {% load blog_tags %}
 {% block title %}My Blog{% endblock %}
 {% block content %}
+  {% if search %}
+    <div class="post col-md-12">
+      <h2>Search results...</h2>
+    </div>
+  {% endif %}
   {% for post in posts %}
-    {% if search %}
-      <div class="post col-xl-6">
-        <h2>Search results...</h2>
-      </div>
-    {% endif %}
     <div class="post col-xl-6">
         <div class="post-thumbnail">
             <a href="{{ post.get_absolute_url }}">
