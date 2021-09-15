@@ -118,8 +118,6 @@ class Post(models.Model):
 										self.publish.strftime('%Y'),
 										self.slug])
 
-		# return reverse('post_detail', args=[self.publish.strftime('%d'), self.slug])
-
 	def get_previous_post(self):
 		post = get_object_or_404(Post, slug=self.slug, status='published', publish=self.publish)
 		post_tags_ids = post.tags.values_list('id', flat=True)

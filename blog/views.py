@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .forms import CommentForm
 from taggit.models import Tag
 from django.db.models import Count
@@ -38,7 +38,6 @@ def list(request, tag_slug=None):
 	              {'page': page,
 	               'posts': posts,
 	               'tag': tag})
-
 
 
 def detail(request, day, month, year, post):
