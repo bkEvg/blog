@@ -25,5 +25,5 @@ def get_most_popular_posts(count=5):
 	return Post.objects.filter(status='published').annotate(total_views=Count('views')).order_by('-total_views')[:count]
 
 @register.simple_tag
-def get_most_popular_tags(count=8):
+def get_most_popular_tags(count=5):
 	return Tag.objects.all().filter(slug__isnull=False).annotate(total_posts=Count('posts')).order_by('-total_posts')[:count]
