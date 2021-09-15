@@ -13,6 +13,7 @@ from django.contrib import messages
 from django.db.models import Count
 
 
+
 def list(request, tag_slug=None):
 	object_list = Post.objects.filter(status='published').order_by('-created')
 

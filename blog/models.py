@@ -72,7 +72,7 @@ class TagBase(models.Model):
 
 class Author(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Пользователь')
-	profile_image = models.ImageField(upload_to='profile_images', default='default.jpeg', verbose_name='Фото профиля')
+	profile_image = models.ImageField(upload_to='media/profile_images', default='default.jpeg', verbose_name='Фото профиля')
 	first_name = models.CharField(max_length=200, blank=True, verbose_name='Имя')
 	last_name = models.CharField(max_length=200, blank=True, verbose_name='Фамилия')
 
@@ -93,7 +93,7 @@ class Post(models.Model):
 		('draft', 'Черновик'),
 		('published', 'Готов'),
 	)
-	cover = models.ImageField(upload_to='blog_covers/%d.%m.%Y/', default='default_cover.jpeg', verbose_name='Обложка')
+	cover = models.ImageField(upload_to='media/blog_covers/%d.%m.%Y/', default='default_cover.jpeg', verbose_name='Обложка')
 	title = models.CharField(max_length=250, verbose_name='Заголовок')
 	slug = models.SlugField(max_length=250, unique_for_date='publish')
 	author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='blog_posts', verbose_name='Автор')
