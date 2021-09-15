@@ -44,7 +44,7 @@ def list(request, tag_slug=None):
 # def detail(request, day, month, year, post):
 def detail(request, day, post):
 	# post = get_object_or_404(Post, slug=post, status='published', publish__day=day, publish__month=month, publish__year=year)
-	post = get_object_or_404(Post, slug=post, status='published')
+	post = get_object_or_404(Post, slug=post, status='published', publish__day=day,)
 	post_tags_ids = post.tags.values_list('id', flat=True)
 	similar_posts = Post.objects.filter(tags__in=post_tags_ids, status='published').exclude(id=post.id)
 	similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags','-publish')[:4]
