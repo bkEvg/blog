@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.db.models import Q
 from blog.models import Post
 from django.contrib.postgres.search import SearchVector
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def search(request):
