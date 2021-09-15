@@ -147,13 +147,13 @@ SITE_ID = 1
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 
-# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-# AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 
-AWS_ACCESS_KEY_ID = 'AKIAXXJ2XMKTKBRKUKBJ'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'bauerblog-bucket'
+# AWS_ACCESS_KEY_ID = 'AKIAXXJ2XMKTKBRKUKBJ'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'bauerblog-bucket'
 
 
 # optional: if smb upload the same name file don't overwrite it
