@@ -42,7 +42,7 @@ def list(request, tag_slug=None):
 
 
 # def detail(request, day, month, year, post):
-def detail(request, post):
+def detail(request, day, post):
 	# post = get_object_or_404(Post, slug=post, status='published', publish__day=day, publish__month=month, publish__year=year)
 	post = get_object_or_404(Post, slug=post, status='published')
 	post_tags_ids = post.tags.values_list('id', flat=True)
