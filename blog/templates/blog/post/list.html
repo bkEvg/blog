@@ -22,7 +22,7 @@
                 <a href="{% url 'post_list_by_tag' tag.slug %}">{{ tag.name }}</a>
               {% endfor %}</div>
           </div><a href="{{ post.get_absolute_url }}">
-            <h3 class="h4">{{ post.title }}</h3></a>
+            <h3 class="h4">{{ post.title|truncatewords:8 }}</h3></a>
           <p class="text-muted" style="margin-top: -20px;">{{ post.body|truncatewords:30|safe }}</p>
           <div class="post-footer d-flex align-items-center">
             <a href="#" class="author d-flex align-items-center flex-wrap">

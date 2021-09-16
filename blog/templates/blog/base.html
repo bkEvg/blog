@@ -5,7 +5,6 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="{% static 'blog/img/imprint.ico' %}" />
     <title>{% block title %}{% endblock %}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,10 +23,9 @@
     <link rel="stylesheet" href="{% static 'blog/vendor/@fancyapps/fancybox/jquery.fancybox.min.css' %}">
     <!-- theme stylesheet-->
     <link rel="stylesheet" href="{% static 'blog/css/style.blue.css' %}" id="theme-stylesheet">
-    <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="{% static 'blog/css/custom.css' %}">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="favicon.png">
+    <link rel="shortcut icon" href="{% static 'blog/img/imprint.ico' %}" />
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -123,8 +121,8 @@
               {% for post in popular_posts %}
               <a href="{{ post.get_absolute_url }}">
                 <div class="item d-flex align-items-center">
-                  <div class="image"><img src="{{ post.cover.url }}" alt="..." class="img-fluid"></div>
-                  <div class="title"><strong>{{ post.title }}</strong>
+                  <div class="image"><img src="{{ post.cover.url }}" alt="Blog post cover" class="img-fluid"></div>
+                  <div class="title"><strong>{{ post.title|truncatewords:6 }}</strong>
                     <div class="d-flex align-items-center">
                       <div class="views"><i class="icon-eye"></i> {{ post.total_views }}</div>
                       {% with post.comments.count as total_comments %}
@@ -161,8 +159,8 @@
             <div class="contact-details">
               <p>Новосибирск, ул. Вокзальная Магистраль, 16, 630099</p>
               <p>Телефон: 7(383)801-04-38</p>
-              <p>Email: <a href="mailto:info@company.com">Info@impirit.ru</a></p>
-              <<!-- ul class="social-menu">
+              <p>Email: <a href="mailto:info@company.com">info@impirit.ru</a></p>
+              <!-- <ul class="social-menu">
                 <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
                 <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
                 <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
@@ -171,7 +169,7 @@
               </ul> -->
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 text-secondary">
             <div class="menus d-flex">
               <ul class="list-unstyled">
                 <li> <a href="#">My Account</a></li>
@@ -188,19 +186,17 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="latest-posts"><a href="#">
+            <div class="latest-posts">
+              {% get_most_popular_posts as popular_posts %}
+              {% for post in popular_posts %}
+              <a href="{{ post.get_absolute_url }}">
                 <div class="post d-flex align-items-center">
-                  <div class="image"><img src="img/small-thumbnail-1.jpg" alt="..." class="img-fluid"></div>
-                  <div class="title"><strong>Hotels for all budgets</strong><span class="date last-meta">October 26, 2016</span></div>
-                </div></a><a href="#">
-                <div class="post d-flex align-items-center">
-                  <div class="image"><img src="img/small-thumbnail-2.jpg" alt="..." class="img-fluid"></div>
-                  <div class="title"><strong>Great street atrs in London</strong><span class="date last-meta">October 26, 2016</span></div>
-                </div></a><a href="#">
-                <div class="post d-flex align-items-center">
-                  <div class="image"><img src="img/small-thumbnail-3.jpg" alt="..." class="img-fluid"></div>
-                  <div class="title"><strong>Best coffee shops in Sydney</strong><span class="date last-meta">October 26, 2016</span></div>
-                </div></a></div>
+                  <div class="image"><img src="{{ post.cover.url }}" alt="Blog post cover" class="img-fluid"></div>
+                  <div class="title"><strong>{{ post.title|truncatewords:6 }}</strong><span class="date last-meta">{{ post.updated|date:'j E, Y' }}</span></div>
+                </div>
+              </a>
+              {% endfor %}
+            </div>
           </div>
         </div>
       </div>
@@ -208,11 +204,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-6">
-              <p>&copy; {% now 'Y' %}. All rights reserved. Your great site.</p>
-            </div>
-            <div class="col-md-6 text-right">
-              <p>Template By <a href="https://bootstrapious.com/p/bootstrap-carousel" class="text-white">Bootstrapious</a>
-              </p>
+              <p>&copy; {% now 'Y' %}. Все права защищены.</p>
             </div>
           </div>
         </div>
@@ -225,6 +217,16 @@
     <script src="{% static 'blog/vendor/jquery.cookie/jquery.cookie.js' %}"> </script>
     <script src="{% static 'blog/vendor/@fancyapps/fancybox/jquery.fancybox.min.js' %}"></script>
     <script src="{% static 'blog/js/front.js' %}"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-34B7RH7Q02"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-34B7RH7Q02');
+    </script>
     {% block scripts %}{% endblock %}
   </body>
 </html>
