@@ -5,6 +5,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="{% static 'blog/img/imprint.ico' %}" />
     <title>{% block title %}{% endblock %}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +17,9 @@
     <!-- Custom icon font-->
     <link rel="stylesheet" href="{% static 'blog/css/fontastic.css' %}">
     <!-- Google fonts - Open Sans-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Staatliches&display=swap" rel="stylesheet">
     <!-- Fancybox-->
     <link rel="stylesheet" href="{% static 'blog/vendor/@fancyapps/fancybox/jquery.fancybox.min.css' %}">
     <!-- theme stylesheet-->
@@ -52,7 +55,7 @@
           <!-- Navbar Brand -->
           <div class="navbar-header d-flex align-items-center justify-content-between">
             <!-- Navbar Brand -->
-            <a href="{% url 'post_list' %}" class="navbar-brand" style="font-family: Roboto, sans-serif;">POMELO <span class="small">blog</span></a>
+            <a href="{% url 'post_list' %}" class="navbar-brand" style="font-family: 'Staatliches', cursive;">Imprint</a>
             <!-- Toggle Button-->
             <div class="navbar-text navbar-toggler">
               <a href="#" class="search-btn" style="border: none;"><i class="icon-search-1"></i></a>
@@ -153,19 +156,19 @@
         <div class="row">
           <div class="col-md-4">
             <div class="logo">
-              <h6 class="text-white">Bootstrap Blog</h6>
+              <h3 class="text-white"><span style="font-family: 'Staatliches', cursive;font-weight: 500;">Imprint</span> Blog</h3>
             </div>
             <div class="contact-details">
-              <p>53 Broadway, Broklyn, NY 11249</p>
-              <p>Phone: (020) 123 456 789</p>
-              <p>Email: <a href="mailto:info@company.com">Info@Company.com</a></p>
-              <ul class="social-menu">
+              <p>Новосибирск, ул. Вокзальная Магистраль, 16, 630099</p>
+              <p>Телефон: 7(383)801-04-38</p>
+              <p>Email: <a href="mailto:info@company.com">Info@impirit.ru</a></p>
+              <<!-- ul class="social-menu">
                 <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
                 <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
                 <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
                 <li class="list-inline-item"><a href="#"><i class="fa fa-behance"></i></a></li>
                 <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-              </ul>
+              </ul> -->
             </div>
           </div>
           <div class="col-md-4">
@@ -205,7 +208,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-6">
-              <p>&copy; 2017. All rights reserved. Your great site.</p>
+              <p>&copy; {% now 'Y' %}. All rights reserved. Your great site.</p>
             </div>
             <div class="col-md-6 text-right">
               <p>Template By <a href="https://bootstrapious.com/p/bootstrap-carousel" class="text-white">Bootstrapious</a>

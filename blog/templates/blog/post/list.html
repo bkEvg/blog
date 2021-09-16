@@ -30,7 +30,7 @@
               <div class="title"><span>{{ post.author.get_full_name }}</span></div>
             </a>
             <div class="views"><i class="icon-eye"></i> {{ post.views.all|length }}</div>
-            <div class="comments meta-last"><i class="icon-comment"></i>12</div>
+            <div class="comments meta-last"><i class="icon-comment"></i>{{ post.comments.all|length }}</div>
           </div>
         </div>
     </div>
@@ -39,4 +39,18 @@
       <h2>Here is nothing, try smt else</h2>
     </div>
   {% endfor %}
+{% endblock %}
+
+{% block scripts %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7200115763252192"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-5y+cq+40-dx+5y"
+     data-ad-client="ca-pub-7200115763252192"
+     data-ad-slot="8371906588"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 {% endblock %}
