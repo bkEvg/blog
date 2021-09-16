@@ -29,6 +29,7 @@ def search(request):
 				{
 					'page': page,
 					'posts': posts,
+					'q': q,
 					'search': True
 				}
 			)

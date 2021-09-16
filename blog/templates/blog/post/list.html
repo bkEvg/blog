@@ -4,7 +4,7 @@
 {% block content %}
   {% if search %}
     <div class="post col-md-12">
-      <h2>Search results...</h2>
+      <h2>Результаты для: "{{ q }}"</h2>
     </div>
   {% endif %}
   {% for post in posts %}
@@ -36,7 +36,7 @@
     </div>
   {% empty %}
     <div class="post col-xl-6">
-      <h2>Here is nothing, try smt else</h2>
+      <h2>Ничего не найдено.</h2>
     </div>
   {% endfor %}
 {% endblock %}
