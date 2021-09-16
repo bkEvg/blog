@@ -9,7 +9,7 @@ def search(request):
 	try:
 		q = request.GET['q']
 		posts = Post.objects.annotate(
-			search=SearchVector('title', 'tags__name',),
+			search=SearchVector('title', 'tags__name'),
 		).filter(search=q, status='published').order_by('-created')
 
 		# object_list = Post.objects.filter(status='published').order_by('-created')
