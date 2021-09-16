@@ -19,7 +19,7 @@
         <div class="post-footer d-flex align-items-center flex-column flex-sm-row">
         	<a href="#" class="author d-flex align-items-center flex-wrap">
             <div class="avatar"><img src="{{ post.author.profile_image.url }}" alt="Фото профиля" class="img-fluid"></div>
-            <div class="title"><span>{{ post.author.get_full_name }}</span></div></a>
+            <div class="title" style="font-weight: 600;"><span>{{ post.author.get_full_name }}</span></div></a>
           <div class="d-flex align-items-center flex-wrap">       
             <div class="date"><i class="icon-clock"></i> {{ post.updated|date:'M j, Y' }}</div>
             <div class="views"><i class="icon-eye"></i> {{ views|length }}</div>

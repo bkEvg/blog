@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'taggit',
     'search',
     'ckeditor',
+    'robots',
     'django.contrib.sites',
     'django.contrib.sitemaps',
 ]
@@ -83,16 +84,6 @@ WSGI_APPLICATION = 'bauer_blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#             'NAME': 'myproject',
-#             'USER': 'myprojectuser',
-#             'PASSWORD': 'password',
-#             'HOST': 'localhost',     # Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
-#             'PORT': '', 
-#     }
-# }
 
 DATABASES = {
     'default': {
@@ -159,6 +150,6 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 # optional: if smb upload the same name file don't overwrite it
 AWS_S3_FILE_OVERWRITE = False
 
-
+ROBOTS_USE_SITEMAP = True
 
 django_heroku.settings(locals())

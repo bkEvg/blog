@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from blog.sitemaps import PostSitemap
+from blog.sitemaps import PostSitemap, StaticViewSitemap
 from django.contrib.sitemaps.views import sitemap
 from django.conf.urls.static import static
 from django.conf import settings
 
 sitemaps = {
+    'main_page': StaticViewSitemap,
 	'posts': PostSitemap,
 }
 
@@ -28,5 +29,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('robots.txt', include('robots.urls')),
     path('search/', include('search.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
