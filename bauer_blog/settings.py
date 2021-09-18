@@ -153,5 +153,5 @@ AWS_S3_FILE_OVERWRITE = False
 
 django_heroku.settings(locals())
 
-STATIC_HOST = 'https://d130kwaowhgjea.cloudfront.net' if not DEBUG else ''
+STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
 STATIC_URL = STATIC_HOST + '/static/'
