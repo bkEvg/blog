@@ -1,0 +1,14 @@
+{% extends "admin/base.html" %}
+{% load static i18n %}
+
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrahead %}
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{% static 'blog/img/admin.ico' %}" />
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">{% trans 'Администрирование IMPRINT' %}</h1>
+{% endblock %}
