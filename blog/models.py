@@ -21,7 +21,10 @@ class Author(models.Model):
 			
 
 	def __str__(self):
-		return self.user.username
+		if not self.first_name or self.last_name:
+			return self.user.username
+		else:
+			return f'{self.first_name} {self.last_name}'
 
 	def get_full_name(self):
 		return f'{self.first_name} {self.last_name}'
