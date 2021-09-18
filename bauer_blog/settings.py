@@ -131,9 +131,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 
-STATIC_HOST = 'https://abzdwetybq.cloudimg.io/v7/_mybucket_'
-
-STATIC_URL = STATIC_HOST + '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
