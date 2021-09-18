@@ -130,7 +130,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_HOST = 'https://d130kwaowhgjea.cloudfront.net' if not DEBUG else ''
+
+STATIC_HOST = 'https://abzdwetybq.cloudimg.io/v7/_mybucket_'
+
 STATIC_URL = STATIC_HOST + '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
@@ -153,3 +155,6 @@ AWS_S3_FILE_OVERWRITE = False
 
 
 django_heroku.settings(locals())
+
+STATIC_HOST = 'https://abzdwetybq.cloudimg.io/v7/_mybucket_'
+STATIC_URL = STATIC_HOST + '/static/'
