@@ -1325,6 +1325,7 @@ main.posts-listing .post-footer {
 .blog-post .post-thumbnail img {
   width: 100%;
   margin-bottom: 10px;
+  max-width: 100%;
 }
 
 .blog-post h1 {
@@ -2579,4 +2580,8 @@ a.text-light:focus, a.text-light:hover {
 
 a.text-dark:focus, a.text-dark:hover {
   color: #1d2124 !important;
+}
+
+.post-body img {
+  max-width:100%;
 }
