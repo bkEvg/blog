@@ -22,7 +22,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# os.environ['SECURE_KEY'] = 'secure_shit_6kt!fli&q93la4e!^%1b5fptsply8*y!uok(=22lz5z166s9da'
 SECRET_KEY = os.environ.get('SECURE_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -133,7 +132,7 @@ USE_TZ = True
 
 STATIC_HOST = 'https://d130kwaowhgjea.cloudfront.net'
 STATIC_URL = STATIC_HOST + '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -141,8 +140,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 SITE_ID = 1
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
@@ -151,7 +150,5 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 
 # optional: if smb upload the same name file don't overwrite it
 AWS_S3_FILE_OVERWRITE = False
-
-ROBOTS_USE_SITEMAP = True
 
 django_heroku.settings(locals())
