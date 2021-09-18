@@ -7,7 +7,7 @@
       <h2>Результаты для: "{{ q }}"</h2>
     </div>
   {% endif %}
-  {% for post in posts %}
+  {% for post in page_obj %}
     <div class="post col-xl-6">
         <div class="post-thumbnail">
             <a href="{{ post.get_absolute_url }}">

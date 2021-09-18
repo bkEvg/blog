@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .forms import CommentForm
 from taggit.models import Tag
 from django.db.models import Count
@@ -11,67 +11,74 @@ from .models import UniqueView, Comment
 from django.db.models import Count
 from django.contrib import messages
 from django.db.models import Count
+# from django.urls import redi
 
 
+class PostListView(ListView):
 
-def list(request, tag_slug=None):
-	object_list = Post.objects.filter(status='published').order_by('-created')
+	""" Post list view """
 
-	tag = None
-	# tags = Tag.objects.all().filter(slug__isnull=False).annotate(total_posts=Count('posts')).order_by('-total_posts')
+	model = Post
+	context_object_name = 'posts'
+	template_name = 'blog/post/list.html'
+	paginate_by = 10
 
-	if tag_slug:
-	    tag = get_object_or_404(Tag, slug=tag_slug)
-	    object_list = object_list.filter(tags__in=[tag])
-
-	paginator = Paginator(object_list, 10)  # posts in each page
-	page = request.GET.get('page')
-	try:
-	    posts = paginator.page(page)
-	except PageNotAnInteger:
-	    # If page is not an integer deliver the first page
-	    posts = paginator.page(1)
-	except EmptyPage:
-	    # If page is out of range deliver last page of results
-	    posts = paginator.page(paginator.num_pages)
-	return render(request,
-	              'blog/post/list.html',
-	              {'page': page,
-	               'posts': posts,
-	               'tag': tag})
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['posts'] = Post.objects.filter(status='published').order_by('-created')
+		return context
 
 
+class PostByTagView(PostListView):
 
-def detail(request, year, post):
+	""" Post list by a tag """
 
-	post = get_object_or_404(Post, slug=post, status='published', publish__year=year)
-	post_tags_ids = post.tags.values_list('id', flat=True)
-	similar_posts = Post.objects.filter(tags__in=post_tags_ids, status='published').exclude(id=post.id)
-	similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags','-publish')[:4]
-	comments = Comment.objects.filter(post=post, active=True).order_by('-created')
-	views = UniqueView.objects.filter(post=post)
-	# List of active comments for this post
-	comments = post.comments.filter(active=True)
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		if self.kwargs['tag_slug']:
+			context['tag'] = get_object_or_404(Tag, slug=self.kwargs['tag_slug'])
+			context['posts'] = Post.objects.filter(tags__in=[context['tag']], status='published').order_by('-created')
+		return context
 
-	if request.method == 'POST':
-	    # A comment was posted
-	    comment_form = CommentForm(data=request.POST)
-	    if comment_form.is_valid():
-	        # Create Comment object but don't save to database yet
-	        new_comment = comment_form.save(commit=False)
-	        # Assign the current post to the comment
-	        new_comment.post = post
-	        # Save the comment to the database
-	        new_comment.save()
-	        messages.success(request, message='Ваш комментарий опубликован!')
-	else:
-		comment_form = CommentForm()
-		ip = get_client_ip(request)
-		counter, created = UniqueView.objects.get_or_create(post=post, ip=ip)
 
-	return render(request,'blog/post/detail.html', {'post': post, 'comments': comments, 
-													'comment_form': comment_form, 
-													'similar_posts': similar_posts,
-													'views': views,
-													'comments': comments})
+class PostDetailView(DetailView):
 
+	""" Post detail view """
+
+	model = Post 
+	context_object_name = 'post'
+	template_name = 'blog/post/detail.html'
+
+	def get_context_data(self, **kwargs):
+
+		context = super().get_context_data(**kwargs)
+		context['post'] = get_object_or_404(Post, slug=self.kwargs['slug'], status='published')
+		context['post_tags_ids'] = context['post'].tags.values_list('id', flat=True)
+		context['similar_posts'] = Post.objects.filter(tags__in=context['post_tags_ids'], status='published').exclude(id=context['post'].id)
+		context['similar_posts'] = context['similar_posts'].annotate(same_tags=Count('tags')).order_by('-same_tags','-publish')[:4]
+		context['comments'] = Comment.objects.filter(post=context['post'], active=True).order_by('-created')
+		context['views'] = UniqueView.objects.filter(post=context['post'])
+		# List of active comments for this post
+		context['comments'] = context['post'].comments.filter(active=True)
+		context['comment_form'] = CommentForm()
+		context['ip'] = get_client_ip(self.request)
+		counter, created = UniqueView.objects.get_or_create(post=context['post'], ip=context['ip'])
+		return context
+
+	def post(self, *args, **kwargs):
+		self.object = self.get_object()
+		comment_form = CommentForm(data=self.request.POST)
+		context = super().get_context_data(**kwargs)
+		if comment_form.is_valid():
+			# Create Comment object but don't save to database yet
+			new_comment = comment_form.save(commit=False)
+			# Assign the current post to the comment
+			new_comment.post = context['post']
+			# Save the comment to the database
+			new_comment.save()
+			messages.success(self.request, message='Ваш комментарий опубликован!')
+			url = self.request.META.get('HTTP_REFERER')
+			return redirect(url)
+
+		else:
+			print('Form is not valid.')
