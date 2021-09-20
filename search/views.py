@@ -41,7 +41,7 @@ def search(request):
 				'blog/post/list.html',
 				{
 					'page': page,
-					'posts': posts
+					'page_obj': posts
 				}
 			)
 	# results = BlogPost.objects.filter(
