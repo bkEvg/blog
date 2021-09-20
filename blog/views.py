@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic import ListView, DetailView
+from django.views import generic
 from .forms import CommentForm
 from taggit.models import Tag
 from django.db.models import Count
@@ -12,9 +12,11 @@ from django.db.models import Count
 from django.contrib import messages
 from django.db.models import Count
 from django.template import RequestContext
+from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class PostListView(ListView):
+class PostListView(generic.ListView):
 
 	""" Post list view """
 
@@ -41,7 +43,7 @@ class PostByTagView(PostListView):
 		return context
 
 
-class PostDetailView(DetailView):
+class PostDetailView(generic.DetailView):
 
 	""" Post detail view """
 
@@ -82,6 +84,11 @@ class PostDetailView(DetailView):
 
 		else:
 			print('Form is not valid.')
+
+
+class ProfileDetailView(generic.TemplateView, LoginRequiredMixin):
+	template_name = 'blog/accounts/user.html'
+
 
 def handler404(request, *args, **argv):
     return render(request,'blog/404.html')

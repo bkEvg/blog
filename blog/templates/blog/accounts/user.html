@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block title %}Автор {{ request.user.username }}{% endblock %}
+
+{% block content %}
+	<div class="col-12">
+		<div class="author-card">
+			<div class="author-card__image">
+				
+			</div>
+			<div class="author-card__details">
+				<div class="avatar" style="min-width: 50px;max-width: 50px;height: 50px;"><img src="{{ user.author.profile_image.url }}" alt="Фото профиля" class="img-fluid"></div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
