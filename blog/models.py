@@ -21,7 +21,7 @@ class Author(models.Model):
 			
 
 	def __str__(self):
-		if not self.first_name or self.last_name:
+		if not self.first_name or not self.last_name:
 			return self.user.username
 		else:
 			return f'{self.first_name} {self.last_name}'
