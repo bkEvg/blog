@@ -2585,3 +2585,8 @@ a.text-dark:focus, a.text-dark:hover {
 .post-body img {
   max-width:100%;
 }
+
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}

@@ -81,6 +81,16 @@ $(document).ready(function () {
         }
     });
 
+    function disableScrolling(){
+        var x=window.scrollX;
+        var y=window.scrollY;
+        window.onscroll=function(){window.scrollTo(x, y);};
+    }
+
+    function enableScrolling(){
+        window.onscroll=function(){};
+    }
+
 
     // ---------------------------------------------- //
     // Search Bar
@@ -88,10 +98,13 @@ $(document).ready(function () {
     $('.search-btn').on('click', function (e) {
         e.preventDefault();
         $('.search-area').fadeIn();
+        disableScrolling()
     });
     $('.search-area .close-btn').on('click', function () {
         $('.search-area').fadeOut();
+        enableScrolling()
     });
+
 
 
 
