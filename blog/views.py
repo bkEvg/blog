@@ -11,7 +11,7 @@ from .models import UniqueView, Comment
 from django.db.models import Count
 from django.contrib import messages
 from django.db.models import Count
-# from django.urls import redi
+from django.template import RequestContext
 
 
 class PostListView(ListView):
@@ -82,3 +82,10 @@ class PostDetailView(DetailView):
 
 		else:
 			print('Form is not valid.')
+
+def handler404(request, *args, **argv):
+    return render(request,'blog/404.html')
+
+
+def handler500(request, *args, **argv):
+    return render(request, 'blog/500.html')

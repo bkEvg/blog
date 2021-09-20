@@ -1,0 +1,10 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}Ошибка 404 | IMPRINT{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 3em;" class="mb-3">Ошибка 404</h1>
+<h1 class="mb-5 text-muted">Кажется вы потерялись, вернитесь используя логотип сверху.</h1>
+<img style="width: 50%;margin-left: 0 auto;" src="{% static 'blog/img/astronaut.svg' %}">
+{% endblock content %}

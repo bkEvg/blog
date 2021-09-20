@@ -1,0 +1,10 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}Ошибка 500 | IMPRINT{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 3em;" class="mb-3">Нет связи с сервером</h1>
+<h1 class="mb-5 text-muted">Кажется у нас что-то поломалось... Мы уже чиним.</h1>
+<img style="width: 50%;margin-left: 0 auto;" src="{% static 'blog/img/505.svg' %}">
+{% endblock content %}
