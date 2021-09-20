@@ -44,7 +44,7 @@
         	<a href="{{ previous_post.get_absolute_url }}" class="prev-post text-left d-flex align-items-center">
 	            <div class="icon prev"><i class="fa fa-angle-left"></i></div>
 	            <div class="text"><strong class="text-primary">Предыдущий пост </strong>
-	              <h6>{{ previous_post.title }}</h6>
+	              <h6>{{ previous_post.title|truncatewords:8 }}</h6>
 	            </div>
 	        </a>
 	       	{% else %}
@@ -54,7 +54,7 @@
         {% if next_post %}
         <a href="{{ next_post.get_absolute_url }}" class="next-post text-right d-flex align-items-center justify-content-end">
             <div class="text"><strong class="text-primary">Следующий пост </strong>
-              <h6>{{ next_post.title }}</h6>
+              <h6>{{ next_post.title|truncatewords:8 }}</h6>
             </div>
             <div class="icon next"><i class="fa fa-angle-right">   </i></div>
         </a>{% else %}{% endif %}</div>
