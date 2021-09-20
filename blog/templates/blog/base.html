@@ -91,19 +91,7 @@
           </div>
         </main>
         <aside class="col-lg-4">
-          <!-- Widget [Search Bar Widget]-->
-          <div class="widget search">
-            <header>
-              <h3 class="h6">Поиск по блогу</h3>
-            </header>
-            <form action="{% url 'search' %}" class="search-form">
-              <div class="form-group">
-                <input type="text" name='q' placeholder="Что вы ищете?">
-                <button type="submit" class="submit"><i class="icon-search"></i></button>
-              </div>
-            </form>
-          </div>
-          <!-- Widget [Latest Posts Widget]        -->
+          <!-- Widget [Latest Posts Widget] -->
           <div class="widget latest-posts">
             <header>
               <h3 class="h6">Популярные посты</h3>
@@ -221,10 +209,9 @@
     <script src="{% static 'blog/vendor/popper.js/umd/popper.min.js' %}"> </script>
     <script src="{% static 'blog/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'blog/vendor/jquery.cookie/jquery.cookie.js' %}"> </script>
-    <script src="{% static 'blog/vendor/@fancyapps/fancybox/jquery.fancybox.min.js' %}"></script>
     <script src="{% static 'blog/js/front.js' %}"></script>
 
-    
+
 
     <!-- Custom icon font-->
     <link rel="stylesheet" href="{% static 'blog/css/fontastic.css' %}">
