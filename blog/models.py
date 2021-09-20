@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from taggit.managers import TaggableManager
 from django.contrib.auth.models import User
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.shortcuts import get_object_or_404
 from django.db.models import Count
 
@@ -39,7 +39,7 @@ class Post(models.Model):
 	title = models.CharField(max_length=250, verbose_name='Заголовок')
 	slug = models.SlugField(max_length=250, unique_for_date='publish')
 	author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='blog_posts', verbose_name='Автор')
-	body = RichTextField(blank=True)
+	body = RichTextUploadingField(blank=True)
 	publish = models.DateTimeField(default=timezone.now)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)

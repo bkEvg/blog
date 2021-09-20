@@ -163,6 +163,30 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_FILE_OVERWRITE = False
 
 
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'toolbar': 'Custom',
+#         'toolbar_Custom': [
+#             ['Bold', 'Italic', 'Underline'],
+#             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+#             ['Link', 'Unlink'],
+#             ['RemoveFormat', 'Source']
+#         ],
+
+#         'toolbar_YourCustomToolbarConfig': [
+#             {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
+#             {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+#             {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
+#             {'name': 'basicstyles',
+#              'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+#         ],
+#         'toolbar': 'YourCustomToolbarConfig',
+#         'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
+
+#     }
+# }
+
+
 django_heroku.settings(locals())
 
 STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
