@@ -165,51 +165,10 @@ AWS_S3_FILE_OVERWRITE = False
 
 CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink'],
-            ['RemoveFormat', 'Source']
-        ],
-
-        'toolbar_YourCustomToolbarConfig': [
-            {'name': 'styles', 'items': ['Styles', 'Format', 'FontSize']},
-            {'name': 'document', 'items': ['-', 'Templates']},
-            {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
-            {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
-            {'name': 'basicstyles',
-             'items': ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat']},
-            {'name': 'tools', 'items': ['Maximize']},
-            {'name': 'insert',
-             'items': ['Image', 'Table']},
-            {'name': 'paragraph',
-             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-',
-                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock',]},
-        ],
+        'toolbar': 'full',
         'height': 500,
-        'width': '100%',
-        'tabSpaces': 4,
-        'toolbar': 'YourCustomToolbarConfig',
-        'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
-        'extraPlugins': ','.join([
-            'uploadimage', # the upload image feature
-            # your extra plugins here
-            'div',
-            'autolink',
-            'autoembed',
-            'embedsemantic',
-            'autogrow',
-            # 'devtools',
-            'widget',
-            'lineutils',
-            'clipboard',
-            'dialog',
-            'dialogui',
-            'elementspath'
-        ]),
-
-    }
+        'width': 100%,
+    },
 }
 
 
