@@ -20,15 +20,14 @@ class PostListView(ListView):
 
 	model = Post
 	template_name = 'blog/post/list.html'
-	paginate_by = 10
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		post_list = Post.objects.filter(status='published').order_by('-created')
-		paginator = Paginator(post_list, 10) # Show 25 contacts per page.
 
-	    page_number = request.GET.get('page')
-	    context['page_obj'] = paginator.get_page(page_number)
+		paginator = Paginator(post_list, 10) # Show 25 contacts per page.
+		page_number = self.request.GET.get('page')
+		context['page_obj'] = paginator.get_page(page_number)
 		return context
 
 
