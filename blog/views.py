@@ -39,7 +39,10 @@ class PostByTagView(PostListView):
 		context = super().get_context_data(**kwargs)
 		if self.kwargs['tag_slug']:
 			context['tag'] = get_object_or_404(Tag, slug=self.kwargs['tag_slug'])
-			context['posts'] = Post.objects.filter(tags__in=[context['tag']], status='published').order_by('-created')
+			post_list = Post.objects.filter(tags__in=[context['tag']], status='published').order_by('-created')
+			paginator = Paginator(post_list, 10) # Show 25 contacts per page.
+			page_number = self.request.GET.get('page')
+			context['page_obj'] = paginator.get_page(page_number)
 		return context
 
 
