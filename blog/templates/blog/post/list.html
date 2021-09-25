@@ -7,6 +7,10 @@
     <div class="post col-md-12">
       <h2>Результаты для: "{{ q }}"</h2>
     </div>
+  {% elif tag %}
+    <div class="post col-md-12">
+      <h2>{{ tag }}</h2>
+    </div>
   {% endif %}
   {% for post in page_obj %}
     <div class="post col-xl-6">
