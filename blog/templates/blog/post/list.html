@@ -41,12 +41,12 @@
             </div>
         </div>
     </div>
-    {% include 'blog/pagination.html' %}
   {% empty %}
     <div class="post col-xl-6">
       <h2>Ничего не найдено.</h2>
     </div>
   {% endfor %}
+  {% include 'blog/pagination.html' %}
 {% endblock %}
 
 {% block scripts %}
