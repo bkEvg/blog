@@ -39,6 +39,7 @@ class Post(models.Model):
 	title = models.CharField(max_length=250, verbose_name='Заголовок')
 	slug = models.SlugField(max_length=250, unique_for_date='publish')
 	author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='blog_posts', verbose_name='Автор')
+	description = models.CharField(default='None', max_length=250, verbose_name="Краткое описание поста для продвижения")
 	body = RichTextUploadingField(blank=True)
 	publish = models.DateTimeField(default=timezone.now)
 	created = models.DateTimeField(auto_now_add=True)
