@@ -30,7 +30,7 @@
             </div> 
             <a href="{{ post.get_absolute_url }}">
             <h3 class="h4">{{ post.title|truncatewords:8 }}</h3></a>
-            <p class="text-muted" style="margin-top: -20px;">{{ post.body|truncatewords:30|safe }}</p>
+           <!--  <p class="text-muted" style="margin-top: -20px;">{{ post.body|truncatewords:30|safe }}</p> -->
             <div class="post-footer d-flex align-items-center">
                 <a href="#" class="author d-flex align-items-center flex-wrap">
                   <div class="avatar" style="min-width: 50px;max-width: 50px;height: 50px;"><img src="{{ post.author.profile_image.url }}" alt="Фото профиля" class="img-fluid"></div>

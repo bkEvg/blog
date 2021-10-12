@@ -1,7 +1,7 @@
 {% extends "blog/base.html" %}
 {% load static %}
 {% block title %}{{ post.title }}{% endblock %}
-{% block description %}{{ post.body|truncatewords:30|safe }}{% endblock %}
+{% block description %}{{ post.description }}{% endblock %}
 
 {% block content %}
 <main class="post blog-post col-lg-12"> 
