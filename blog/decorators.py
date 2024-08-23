@@ -3,6 +3,7 @@ from django.db.models import F
 from django.db import transaction
 from .models import PageHit
 
+
 def counted(f):
     @wraps(f)
     def decorator(request, *args, **kwargs):

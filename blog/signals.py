@@ -4,8 +4,7 @@ from django.contrib.auth.models import User
 from .models import Author
 
 
-
 @receiver(post_save, sender=User)
 def create_author(sender, instance, created, **kwargs):
-	if created:
-		Author.objects.create(user=instance)
+    if created:
+        Author.objects.create(user=instance)

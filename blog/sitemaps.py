@@ -1,9 +1,15 @@
 from django.contrib.sitemaps import Sitemap
-from .models import Post
 from django.urls import reverse
+
+from .models import Post
 
 
 class StaticViewSitemap(Sitemap):
+    """Static view settings for SEO opt.
+
+    Args:
+        Sitemap (_type_): base class
+    """
     priority = 0.99
     changefreq = 'weekly'
 
@@ -15,11 +21,16 @@ class StaticViewSitemap(Sitemap):
 
 
 class PostSitemap(Sitemap):
-	changefreq = 'daily'
-	priority = 0.9
+    """Post list sitemap settings for SEO opt.
 
-	def items(self):
-		return Post.objects.filter(status='published')
+    Args:
+        Sitemap (_type_): base class
+    """
+    changefreq = 'daily'
+    priority = 0.9
 
-	def lastmod(self, obj):
-		return obj.publish
+    def items(self):
+        return Post.objects.filter(status='published')
+
+    def lastmod(self, obj):
+        return obj.publish

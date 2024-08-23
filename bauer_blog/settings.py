@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
-import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,18 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECURE_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if DEBUG:
     ALLOWED_HOSTS = ['*']
-
 else:
-
     ALLOWED_HOSTS = ['bauerblog.herokuapp.com']
 
-
     # Production settings
-
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
     SECURE_HSTS_SECONDS = 3600
@@ -55,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     'storages',
     'blog.apps.BlogConfig',
     'taggit',
@@ -62,8 +59,6 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'robots',
-    'django.contrib.sites',
-    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
@@ -79,10 +74,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'bauer_blog.urls'
 
+TEMPLATE_DIRS = [
+    BASE_DIR / 'templates'
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': TEMPLATE_DIRS,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -115,16 +114,25 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':
+            '''
+            django.contrib.auth.password_validation.
+            UserAttributeSimilarityValidator''',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME':
+            '''django.contrib.auth.password_validation.
+            MinimumLengthValidator''',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME':
+            '''django.contrib.auth.password_validation.
+            CommonPasswordValidator''',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME':
+            '''django.contrib.auth.password_validation.
+            NumericPasswordValidator''',
     },
 ]
 
@@ -146,12 +154,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
+STATIC_URL = STATIC_HOST + '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-CKEDITOR_UPLOAD_PATH = "uploads/"
 
 SITE_ID = 1
 
@@ -163,10 +172,8 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 
-
 # optional: if smb upload the same name file don't overwrite it
 AWS_S3_FILE_OVERWRITE = False
-
 
 CKEDITOR_CONFIGS = {
     'default': {
@@ -176,8 +183,4 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-
-django_heroku.settings(locals())
-
-STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
-STATIC_URL = STATIC_HOST + '/static/'
+CKEDITOR_UPLOAD_PATH = "uploads/"
