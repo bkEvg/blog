@@ -34,7 +34,7 @@
             <div class="post-footer d-flex align-items-center">
                 <a href="#" class="author d-flex align-items-center flex-wrap">
                   <div class="avatar" style="min-width: 50px;max-width: 50px;height: 50px;"><img src="{{ post.author.profile_image.url }}" alt="Фото профиля" class="img-fluid"></div>
-                  <div class="title" style="font-weight: 600;"><span>{{ post.author.__str__ }}</span></div>
+                  <div class="title" style="font-weight: 600;"><span>{{ post.author.get_full_name }}</span></div>
                 </a>
                 <div class="views"><i class="icon-eye"></i> {{ post.views.all|length }}</div>
                 <div class="comments meta-last"><i class="icon-comment"></i>{{ post.comments.all|length }}</div>

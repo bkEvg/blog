@@ -30,6 +30,9 @@ class Author(models.Model):
         verbose_name_plural = 'авторы'
 
     def __str__(self):
+        return self.get_full_name()
+
+    def get_full_name(self):
         if not self.first_name or not self.last_name:
             return self.user.username
         else:
