@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from taggit.managers import TaggableManager
 from ckeditor_uploader.fields import RichTextUploadingField
+from slugify import slugify
 
 
 class Author(models.Model):
@@ -68,6 +69,12 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwags):
+        super().save(args, kwags)
+        for tag in self.tags.all():
+            tag.slug = slugify(tag.name, lowercase=True)
+            tag.save()
 
     def get_absolute_url(self):
         return reverse('post_detail', args=[self.slug])
