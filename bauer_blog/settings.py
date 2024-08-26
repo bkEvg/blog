@@ -9,9 +9,8 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
-from pathlib import Path
 import os
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,28 +20,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECURE_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1", "t")
 
 if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = ['ec2-44-201-17-235.compute-1.amazonaws.com']
+    ALLOWED_HOSTS = os.environ.get('ALLOWED_HOST').split(',')
+    if not ALLOWED_HOSTS:
+        raise ValueError("Не указана переменная окружения ALLOWED_HOST")
+    try:
+        from bauer_blog import production_settings
+    except ImportError:
+        raise Exception("Не найден модуль с настройками "
+                        "для Прода: production_settings.py")
 
-    # Production settings
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
-    SECURE_HSTS_SECONDS = 3600
-    SECURE_SSL_REDIRECT = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-
-
-# Application definition
-
+# Определение приложений
 INSTALLED_APPS = [
+    # Использование Whitenoise для статики без кэширования при разработке
     'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -52,10 +49,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.sitemaps',
-    'storages',
+    'search.apps.SearchConfig',
     'blog.apps.BlogConfig',
+    'storages',
     'taggit',
-    'search',
     'ckeditor',
     'ckeditor_uploader',
     'robots',
@@ -63,6 +60,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # Настройка для кеширования статических файлов
+    # Должна быть на этом месте строго после конф безопасности
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -114,16 +113,20 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': ('django.contrib.auth.password_validation.'
+                 'UserAttributeSimilarityValidator'),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': ('django.contrib.auth.password_validation.'
+                 'MinimumLengthValidator'),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': ('django.contrib.auth.password_validation.'
+                 'CommonPasswordValidator'),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': ('django.contrib.auth.password_validation.'
+                 'NumericPasswordValidator'),
     },
 ]
 
@@ -147,6 +150,7 @@ USE_TZ = True
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+# Динамический урл для статических файлов
 STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
 STATIC_URL = STATIC_HOST + '/static/'
 
@@ -156,16 +160,25 @@ MEDIA_ROOT = BASE_DIR / 'media'
 SITE_ID = 1
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Данные для АмазонВебТех
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+if not AWS_ACCESS_KEY_ID:
+    raise ValueError("Не указана перменная окружения AWS_ACCESS_KEY_ID")
 
-# optional: if smb upload the same name file don't overwrite it
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+if not AWS_SECRET_ACCESS_KEY:
+    raise ValueError("Не указана перменная окружения AWS_SECRET_ACCESS_KEY")
+
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+if not AWS_STORAGE_BUCKET_NAME:
+    raise ValueError("Не указана перменная окружения AWS_STORAGE_BUCKET_NAME")
+
+# Не перезаписывать файлы в ведре
 AWS_S3_FILE_OVERWRITE = False
 
+# Ckeditor настройки
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',
