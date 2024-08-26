@@ -70,8 +70,8 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, *args, **kwags):
-        super().save(args, kwags)
+    def save(self, *args, **kwargs):
+        super().save(*args, *kwargs)
         for tag in self.tags.all():
             tag.slug = slugify(tag.name, lowercase=True)
             tag.save()
@@ -83,7 +83,7 @@ class Post(models.Model):
         post_tags_ids = self.tags.values_list('id', flat=True)
         similar_posts = (Post.objects.
                          filter(tags__in=post_tags_ids, status='published',
-                                created__lt=self.creat).exclude(id=self.id)
+                                created__lt=self.created).exclude(id=self.id)
                          .annotate(same_tags=Count('tags'))
                          .order_by('-same_tags', '-publish'))
 
