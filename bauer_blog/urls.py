@@ -21,7 +21,7 @@ from django.urls import path, include
 
 from blog.sitemaps import PostSitemap, StaticViewSitemap
 
-
+# Sitemap'ы для сайта, важно для SEO
 sitemaps = {
     'main_page': StaticViewSitemap,
     'posts': PostSitemap,
@@ -36,11 +36,14 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),  # ckeditor needs
     path('search/', include('search.urls'))  # search application
 ]
+
 if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT
     )
 
+# Обработка ошибок своими страницами
+# Важно для SEO для для UX
 handler404 = 'blog.views.handler404'
 handler500 = 'blog.views.handler500'
