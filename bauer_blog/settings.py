@@ -25,17 +25,16 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1", "t")
 
-if DEBUG:
-    ALLOWED_HOSTS = ['*']
-else:
+try:
     ALLOWED_HOSTS = os.environ.get('ALLOWED_HOST').split(',')
-    if not ALLOWED_HOSTS:
-        raise ValueError("Не указана переменная окружения ALLOWED_HOST")
-    try:
-        from bauer_blog import production_settings
-    except ImportError:
-        raise Exception("Не найден модуль с настройками "
-                        "для Прода: production_settings.py")
+except AttributeError:
+    raise ValueError("Не указана переменная окружения ALLOWED_HOST")
+
+try:
+    from bauer_blog import production_settings
+except ImportError:
+    raise Exception("Не найден модуль с настройками "
+                    "для Прода: production_settings.py")
 
 # Определение приложений
 INSTALLED_APPS = [
