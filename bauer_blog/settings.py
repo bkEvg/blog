@@ -187,4 +187,4 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_UPLOAD_PATH = "media/uploads/"
